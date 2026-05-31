@@ -1,0 +1,121 @@
+﻿@model Cinema_Booking.Models.Phim
+
+<div class="container mt-5 movie-detail-page">
+    <div class="row g-4">
+
+        <!-- POSTER -->
+
+        <div class="col-md-4">
+
+            <img src="@Model.HinhAnh"
+                 class="img-fluid rounded shadow-lg movie-detail-img" />
+
+        </div>
+
+        <!-- THÔNG TIN PHIM -->
+
+        <div class="col-md-8">
+
+            <h1 class="fw-bold mb-3">
+                @Model.TenP
+            </h1>
+
+            <!-- THỂ LOẠI -->
+
+            <div class="mb-3 text-light">
+
+                🎭
+                @string.Join(" | ",
+                         Model.MaTls.Select(x => x.TenTl))
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="movie-detail-info">
+
+                <div class="mb-2">
+                    ⏱ <b>Thời lượng:</b>
+                    @Model.ThoiLuong phút
+                </div>
+
+                <div class="mb-2">
+                    🔞 <b>Độ tuổi:</b>
+                    @Model.DoTuoi+
+                </div>
+
+                <div class="mb-2">
+                    📅 <b>Khởi chiếu:</b>
+
+                    @(Model.NgayKhoiChieu.HasValue
+                        ? Model.NgayKhoiChieu.Value.ToString("dd/MM/yyyy")
+                        : "")
+                </div>
+
+            </div>
+
+            <hr />
+
+            <!-- CHI TIẾT PHIM -->
+
+            <div class="mb-2">
+                🎬 <b>Đạo diễn:</b>
+                @Model.CtPhim?.DaoDien
+            </div>
+
+            <div class="mb-2">
+                🌍 <b>Quốc gia:</b>
+                @Model.CtPhim?.QuocGia
+            </div>
+
+            <div class="mb-2">
+                🗣 <b>Ngôn ngữ:</b>
+                @Model.CtPhim?.NgonNgu
+            </div>
+
+            <div class="mb-2">
+                ⭐ <b>Đánh giá:</b>
+                @Model.CtPhim?.DanhGia / 10
+            </div>
+
+            <!-- MÔ TẢ -->
+
+            <div class="mt-4">
+
+                <h4 class="fw-bold">
+                    Nội dung phim
+                </h4>
+
+                <p class="lh-lg movie-desc">
+                    @Model.CtPhim?.MoTa
+                </p>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <div class="mt-4 d-flex gap-3">
+
+                <a asp-controller="Suatchieus"
+                   asp-action="SuatTheoPhim"
+                   asp-route-maP="@Model.MaP"
+                   class="btn btn-danger btn-lg">
+
+                    🎟 Đặt vé ngay
+
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-light btn-lg">
+
+                    ← Quay lại
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Sanpham>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1 class="page-title">
+            🍿 Quản lý sản phẩm
+        </h1>
+
+        <a asp-action="Create"
+           class="btn-add">
+
+            ➕ Thêm sản phẩm
+
+        </a>
+
+    </div>
+
+    <div class="product-table">
+
+        <table class="table mb-0">
+
+            <thead>
+
+                <tr>
+                    <th>Mã SP</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Loại</th>
+                    <th>Giá bán</th>
+                    <th>Thao tác</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.MaSp</td>
+
+                        <td>@item.TenSp</td>
+
+                        <td>@item.LoaiSp</td>
+
+                        <td>
+                            @item.DonGia?.ToString("N0") đ
+                        </td>
+
+                        <td>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.MaSp"
+                               class="btn-action edit">
+
+                                ✏️ Sửa
+
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.MaSp"
+                               class="btn-action delete">
+
+                                🗑 Xóa
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+/* TITLE */
+
+.page-title{
+    color:white;
+    font-size:38px;
+    font-weight:bold;
+}
+
+/* TABLE */
+
+.product-table{
+    background:#111827;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+
+.table{
+    color:white;
+}
+
+.table thead{
+    background:#dc2626;
+}
+
+.table thead th{
+    color:white;
+    border:none;
+    padding:18px;
+}
+
+.table tbody td{
+    padding:18px;
+    vertical-align:middle;
+    border-color:#374151;
+}
+
+.table tbody tr:hover{
+    background:#1f2937;
+}
+
+/* BUTTON ADD */
+
+.btn-add{
+    background:#f59e0b;
+    color:black;
+    font-weight:bold;
+    padding:12px 20px;
+    border-radius:12px;
+    text-decoration:none;
+}
+
+.btn-add:hover{
+    background:#fbbf24;
+    color:black;
+}
+
+/* BUTTON ACTION */
+
+.btn-action{
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-right:5px;
+}
+
+.edit{
+    background:#3b82f6;
+    color:white;
+}
+
+.delete{
+    background:#ef4444;
+    color:white;
+}
+
+.edit:hover,
+.delete:hover{
+    opacity:.9;
+    color:white;
+}
+
+</style>

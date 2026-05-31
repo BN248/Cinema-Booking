@@ -1,0 +1,106 @@
+﻿@model Cinema_Booking.Models.Phim
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-center mb-4 fw-bold">
+            🎬 Thêm phim mới
+        </h2>
+
+        <form asp-action="Create" method="post">
+
+            <div class="mb-3">
+
+                <label class="form-label fw-bold">
+                    Mã phim
+                </label>
+
+                <input asp-for="MaP"
+                       class="form-control" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label fw-bold">
+                    Tên phim
+                </label>
+
+                <input asp-for="TenP"
+                       class="form-control" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label fw-bold">
+                    Hình ảnh (URL)
+                </label>
+
+                <input asp-for="HinhAnh"
+                       class="form-control" />
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label fw-bold">
+                        Thời lượng
+                    </label>
+
+                    <input asp-for="ThoiLuong"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label fw-bold">
+                        Độ tuổi
+                    </label>
+
+                    <input asp-for="DoTuoi"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label fw-bold">
+                        Ngày khởi chiếu
+                    </label>
+
+                    <input asp-for="NgayKhoiChieu"
+                           type="date"
+                           class="form-control" />
+
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+
+                <button type="submit"
+                        class="btn btn-success px-4">
+
+                    ➕ Thêm phim
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary px-4">
+
+                    Quay lại
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

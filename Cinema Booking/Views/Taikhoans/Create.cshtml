@@ -1,0 +1,39 @@
+﻿@model Cinema_Booking.Models.Taikhoan
+
+<div class="container mt-4">
+
+    <h2>➕ Thêm tài khoản</h2>
+
+    <form asp-action="Create">
+
+        <div class="mb-3">
+            <label>Username</label>
+            <input asp-for="Username" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input asp-for="Pass" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Vai trò</label>
+            <select asp-for="VaiTro" class="form-control">
+                <option>User</option>
+                <option>Staff</option>
+                <option>Admin</option>
+            </select>
+        </div>
+
+        <button class="btn btn-success">
+            Lưu
+        </button>
+
+    </form>
+
+</div>

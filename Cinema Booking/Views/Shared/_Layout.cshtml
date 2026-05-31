@@ -1,0 +1,245 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="~/images/logo.png" />
+    <title>@ViewData["Title"] Cinema_Booking</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Cinema_Booking.styles.css" asp-append-version="true" />
+</head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (TempData["Success"] != null)
+{
+    <script>
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: '@TempData["Success"]'
+        });
+
+    </script>
+}
+
+@if (TempData["Loi"] != null)
+{
+    <script>
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: '@TempData["Loi"]'
+        });
+
+    </script>
+}
+<body>
+    <header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+
+        <div class="container">
+
+            <a class="navbar-brand fw-bold"
+               asp-controller="Home"
+               asp-action="Index">
+
+                🎬 Cinema Booking
+
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarCinema">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="navbarCinema">
+
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">
+
+                            Trang chủ
+
+                        </a>
+
+                    </li>
+
+                    @{
+    var role = Context.Session.GetString("Role");
+}
+
+@if (role == "Admin")
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Phims"
+           asp-action="Index">
+            🎬 Quản lý phim
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Suatchieus"
+           asp-action="Index">
+            🎥 Quản lý suất chiếu
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Sanphams"
+           asp-action="Index">
+            🍿 Quản lý sản phẩm
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Ves"
+           asp-action="Index">
+            🎟 Quản lý vé
+        </a>
+    </li>
+    @if (role == "Admin")
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Taikhoans"
+           asp-action="Index">
+            👤 Tài khoản
+        </a>
+    </li>
+}
+}
+
+@if (role == "Staff")
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Suatchieus"
+           asp-action="Index">
+            🎥 Suất chiếu
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Ves"
+           asp-action="Index">
+            🎟 Bán vé
+        </a>
+    </li>
+}
+
+@if (role == "User" || role == null)
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Phims"
+           asp-action="Index">
+            🎬 Xem phim
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Ves"
+           asp-action="Index">
+            🎟 Đặt vé
+        </a>
+    </li>
+    @if (Context.Session.GetString("Role") == "User")
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Ves"
+           asp-action="LichSu">
+            📜 Lịch sử đặt vé
+        </a>
+    </li>
+}
+}
+
+                </ul>
+
+                <div class="d-flex">
+
+                    @if (Context.Session.GetString("Username") == null)
+{
+    <a class="btn btn-outline-light"
+       asp-controller="Account"
+       asp-action="Login">
+
+        Đăng nhập
+
+    </a>
+}
+else
+{
+    <span class="text-white me-3">
+        👋 @Context.Session.GetString("Username")
+    </span>
+
+    <a class="btn btn-danger"
+       asp-controller="Account"
+       asp-action="Logout">
+
+        Đăng xuất
+
+    </a>
+}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Error"]
+    </div>
+}
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - Cinema_Booking - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,401 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Ghe>
+
+@{
+    var gheDaDat = ViewBag.GheDaDat as List<int>;
+    var suat = ViewBag.Suat as Cinema_Booking.Models.Suatchieu;
+
+    decimal giaVe = suat?.GiaVe ?? 0;
+}
+
+<div class="container mt-4">
+
+    <h1 class="text-center text-light mb-4">
+        🎬 ĐẶT GHẾ XEM PHIM
+    </h1>
+
+    <div class="cinema-box">
+
+        <div class="movie-info mb-4">
+
+            <h3>
+                @suat?.MaPNavigation?.TenP
+            </h3>
+
+            <p>
+                📅 @suat?.NgayChieu
+                -
+                🕒 @suat?.GioChieu
+            </p>
+
+            <p>
+                💰 Giá vé:
+                @giaVe.ToString("N0") VNĐ
+            </p>
+
+        </div>
+
+        <!-- MÀN HÌNH -->
+
+        <div class="screen">
+            MÀN HÌNH
+        </div>
+
+        <form method="post" action="/Ves/DatVe">
+
+            <input type="hidden"
+                   name="maSc"
+                   value="@ViewBag.MaSc" />
+
+            <div id="dsGheDaChon"></div>
+
+            <!-- GHẾ -->
+
+            <div class="seat-grid">
+
+                @foreach (var ghe in Model)
+                {
+                    bool daDat = gheDaDat != null
+              && gheDaDat.Contains(ghe.MaG);
+
+                    string loaiCss =
+                    ghe.LoaiG == "VIP"
+                    ? "vip"
+                    : "normal";
+
+                    <div class="ghe
+                                @loaiCss
+                                @(daDat ? "booked" : "")"
+
+                         data-id="@ghe.MaG"
+
+                         data-ten="@ghe.HangG@ghe.SoG">
+
+                        @ghe.HangG@ghe.SoG
+
+                    </div>
+                }
+
+            </div>
+
+            <!-- CHÚ THÍCH -->
+
+            <div class="legend mt-4">
+
+                <div>
+                    <span class="box normal"></span>
+                    Ghế thường
+                </div>
+
+                <div>
+                    <span class="box vip"></span>
+                    Ghế VIP
+                </div>
+
+                <div>
+                    <span class="box booked"></span>
+                    Đã đặt
+                </div>
+
+                <div>
+                    <span class="box selected"></span>
+                    Đang chọn
+                </div>
+
+            </div>
+
+            <!-- THÔNG TIN -->
+
+            <div class="ticket-info">
+
+                <h4>🎟 Thông tin vé</h4>
+
+                <p>
+                    Ghế:
+                    <span id="gheDaChon">
+                        Chưa chọn
+                    </span>
+                </p>
+
+                <p>
+                    Số lượng:
+                    <span id="soLuong">
+                        0
+                    </span>
+                </p>
+
+                <p>
+                    Tổng tiền:
+                    <span id="tongTien">
+                        0
+                    </span>
+                    VNĐ
+                </p>
+
+            </div>
+
+            <div class="text-center mt-4">
+
+                <button type="submit"
+                        class="btn-book-ticket">
+
+                    🎟 XÁC NHẬN ĐẶT VÉ
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+.cinema-box{
+    max-width:1000px;
+    margin:auto;
+    background:#111827;
+    padding:30px;
+    border-radius:20px;
+    color:white;
+}
+
+.movie-info{
+    text-align:center;
+    color:white;
+}
+
+.movie-info h3{
+    color:white;
+    font-size:36px;
+    font-weight:700;
+}
+
+.movie-info p{
+    color:#e5e7eb;
+    font-size:20px;
+    font-weight:500;
+}
+
+.screen{
+    width:80%;
+    margin:20px auto 50px;
+    background:white;
+    color:black;
+    text-align:center;
+    padding:12px;
+    border-radius:50px;
+    font-weight:bold;
+    box-shadow:0 0 30px white;
+}
+
+.seat-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    width:100%;
+}
+
+.ghe{
+    width:100%;
+    height:60px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.ghe:hover{
+    transform:scale(1.08);
+}
+
+.normal{
+    background:#22c55e;
+}
+
+.vip{
+    background:#facc15;
+    color:#111827;
+    font-weight:700;
+}
+.booked{
+    background:#ef4444 !important;
+    cursor:not-allowed;
+}
+
+.selected{
+    background:#3b82f6 !important;
+}
+
+.legend{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.box{
+    width:20px;
+    height:20px;
+    display:inline-block;
+    border-radius:5px;
+    margin-right:5px;
+}
+
+.ticket-info{
+    margin-top:40px;
+    background:#1f2937;
+    padding:20px;
+    border-radius:15px;
+    color:white;
+    font-size:18px;
+}
+
+.ticket-info h4{
+    color:#fbbf24;
+    font-weight:700;
+}
+
+.btn-book-ticket{
+    padding:15px 40px;
+    border:none;
+    border-radius:10px;
+    background:#f59e0b;
+    color:black;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.btn-book-ticket:hover{
+    background:#fbbf24;
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+     console.log("JS RUNNING");
+
+    let dsGhe = document.querySelectorAll(".ghe");
+
+    let khungChua =
+        document.getElementById("dsGheDaChon");
+
+  const giaVe = parseFloat('@giaVe');
+
+    dsGhe.forEach(ghe => {
+
+        if (ghe.classList.contains("booked"))
+            return;
+
+        ghe.addEventListener("click", function () {
+
+             console.log("CLICK");
+
+            ghe.classList.toggle("selected");
+
+            capNhat();
+        });
+
+    });
+
+    function capNhat(){
+
+        khungChua.innerHTML = "";
+
+        let gheDangChon =
+            document.querySelectorAll(".ghe.selected");
+
+        let tenGhe = [];
+
+        gheDangChon.forEach(ghe => {
+
+            let input =
+                document.createElement("input");
+
+            input.type = "hidden";
+
+            input.name = "dsGhe";
+
+            input.value = ghe.dataset.id;
+
+            khungChua.appendChild(input);
+
+            tenGhe.push(ghe.dataset.ten);
+
+        });
+
+        document.getElementById("gheDaChon")
+            .innerText = tenGhe.join(", ");
+
+        document.getElementById("soLuong")
+            .innerText = gheDangChon.length;
+
+        let tongTien =
+            gheDangChon.length * giaVe;
+
+        document.getElementById("tongTien")
+            .innerText = tongTien.toLocaleString();
+
+    }
+
+});
+
+</script>
+<script>
+
+document.querySelector("form")
+.addEventListener("submit", function(){
+
+    document.querySelector(".btn-book-ticket")
+        .disabled = true;
+
+});
+
+</script>
+<script src="https://unpkg.com/@@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>
+<script>
+
+if (typeof signalR !== "undefined")
+{
+    const connection =
+        new signalR.HubConnectionBuilder()
+            .withUrl("/seatHub")
+            .build();
+
+    connection.on(
+        "GheDaDat",
+        function(maSc, maGhe){
+
+            const ghe =
+                document.querySelector(
+                    `[data-id='${maGhe}']`
+                );
+
+            if(ghe)
+            {
+                ghe.classList.remove("selected");
+
+                ghe.classList.add("booked");
+            }
+
+        });
+
+    connection.start()
+        .catch(function(err){
+            console.log(err);
+        });
+}
+
+</script>

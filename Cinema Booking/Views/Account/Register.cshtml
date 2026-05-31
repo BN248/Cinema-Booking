@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-5">
+
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-dark text-light">
+
+                <h2 class="text-center text-warning mb-4">
+                    📝 Đăng ký tài khoản
+                </h2>
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Tên đăng nhập</label>
+                        <input name="username" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu</label>
+                        <input name="password" type="password" class="form-control" />
+                    </div>
+
+                    <button class="btn btn-success w-100 fw-bold">
+                        ✔ Đăng ký
+                    </button>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="Login" class="text-warning">
+                            Đã có tài khoản? Đăng nhập
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

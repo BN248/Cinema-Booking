@@ -1,0 +1,384 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="login-page">
+
+    <!-- LEFT -->
+
+    <div class="login-left">
+
+        <div class="overlay"></div>
+
+        <div class="left-content">
+
+            <h1>
+                🎬 Cinema Booking
+            </h1>
+
+            <p>
+                Đặt vé phim nhanh chóng,
+                trải nghiệm điện ảnh đỉnh cao.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="login-right">
+
+        <div class="login-box">
+
+            <div class="text-center mb-4">
+
+                <h1 class="fw-bold">
+                    Đăng nhập
+                </h1>
+
+                @if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+                <p class="text-secondary">
+                    Chào mừng quay trở lại 👋
+                </p>
+
+            </div>
+
+            <!-- FORM -->
+
+            <form asp-action="Login"
+                  method="post">
+
+                <!-- EMAIL -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Email hoặc tài khoản
+                    </label>
+
+                    <input type="text"
+                           name="username"
+                           class="form-control login-input"
+                           placeholder="Nhập email hoặc tài khoản..." />
+
+                </div>
+
+                <!-- PASSWORD -->
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Mật khẩu
+                    </label>
+
+                    <input type="password"
+                           name="password"
+                           class="form-control login-input"
+                           placeholder="Nhập mật khẩu..." />
+
+                </div>
+
+                <!-- OPTIONS -->
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <div class="form-check">
+
+                        <input class="form-check-input"
+                               type="checkbox" />
+
+                        <label class="form-check-label">
+                            Ghi nhớ đăng nhập
+                        </label>
+
+                    </div>
+
+                    <a href="#"
+                       class="forgot-link">
+
+                        Quên mật khẩu?
+
+                    </a>
+
+                </div>
+
+                <!-- BUTTON -->
+
+                <button type="submit"
+                        class="btn-login">
+
+                    Đăng nhập
+
+                </button>
+
+            </form>
+
+            <!-- DIVIDER -->
+
+            <div class="divider">
+
+                <span>Hoặc</span>
+
+            </div>
+
+            <!-- SOCIAL -->
+
+            <div class="social-login">
+
+                <button class="social-btn google-btn">
+
+                    <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+                         width="20" />
+
+                    Google
+
+                </button>
+
+                <button class="social-btn fb-btn">
+
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                         width="20" />
+
+                    Facebook
+
+                </button>
+
+            </div>
+
+            <!-- REGISTER -->
+
+            <div class="text-center mt-4">
+
+                <span class="text-secondary">
+                    Chưa có tài khoản?
+                </span>
+
+                <a href="#"
+                   class="register-link">
+
+                    Đăng ký ngay
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+    overflow:hidden;
+}
+
+/* PAGE */
+
+.login-page{
+    display:flex;
+    height:100vh;
+}
+
+/* LEFT */
+
+.login-left{
+    flex:1;
+    background-image:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba');
+    background-size:cover;
+    background-position:center;
+    position:relative;
+}
+
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+}
+
+.left-content{
+    position:relative;
+    z-index:2;
+    color:white;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px;
+}
+
+.left-content h1{
+    font-size:60px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.left-content p{
+    font-size:22px;
+    max-width:500px;
+    color:#ddd;
+}
+
+/* RIGHT */
+
+.login-right{
+    width:500px;
+    background:#111827;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+/* BOX */
+
+.login-box{
+    width:100%;
+    color:white;
+}
+
+.login-box h1{
+    font-size:42px;
+}
+
+/* INPUT */
+
+.login-input{
+    background:#1f2937;
+    border:none;
+    color:white;
+    padding:15px;
+    border-radius:12px;
+    font-size:16px;
+}
+
+        .login-input::placeholder {
+            color: #d1d5db;
+            opacity: 1;
+        }
+
+.login-input:focus{
+    background:#1f2937;
+    color:white;
+    border:1px solid #dc2626;
+    box-shadow:none;
+}
+
+/* BUTTON */
+
+.btn-login{
+    width:100%;
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-login:hover{
+    background:#ef4444;
+}
+
+/* LINKS */
+
+.forgot-link,
+.register-link{
+    color:#f87171;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.forgot-link:hover,
+.register-link:hover{
+    color:#ef4444;
+}
+
+/* DIVIDER */
+
+.divider{
+    text-align:center;
+    margin:30px 0;
+    position:relative;
+}
+
+.divider::before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:1px;
+    background:#374151;
+    top:50%;
+    left:0;
+}
+
+.divider span{
+    background:#111827;
+    padding:0 15px;
+    position:relative;
+    color:#9ca3af;
+}
+
+/* SOCIAL */
+
+.social-login{
+    display:flex;
+    gap:15px;
+}
+
+.social-btn{
+    flex:1;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:0.3s;
+}
+
+.google-btn{
+    background:white;
+}
+
+.fb-btn{
+    background:#1877f2;
+    color:white;
+}
+
+.social-btn:hover{
+    transform:translateY(-3px);
+}
+
+    .social-btn {
+        text-decoration: none;
+    }
+
+    .google-btn,
+    .fb-btn {
+        flex: 1;
+        border: none;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+</style>

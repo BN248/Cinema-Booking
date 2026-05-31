@@ -1,0 +1,177 @@
+﻿@model Cinema_Booking.Models.Ve
+
+<div class="container mt-5">
+
+    <div class="ticket-card">
+
+        <div class="ticket-header">
+
+            🎟 VÉ XEM PHIM
+
+        </div>
+
+        <div class="row mt-4">
+
+            <!-- LEFT -->
+
+            <div class="col-md-8">
+
+                <h2 class="movie-title">
+
+                    @Model.MaScNavigation?.MaPNavigation?.TenP
+
+                </h2>
+
+                <div class="ticket-info mt-4">
+
+                    <p>
+                        <b>Mã vé:</b>
+                        @Model.MaV
+                    </p>
+
+                   <p>
+    <b>Phòng chiếu:</b>
+    @Model.MaScNavigation?.MaPhNavigation?.TenPh
+</p>
+
+                    <p>
+                        <b>Ghế:</b>
+
+                        @Model.MaGNavigation?.HangG
+                        @Model.MaGNavigation?.SoG
+                    </p>
+
+                    <p>
+                        <b>Ngày chiếu:</b>
+
+                        @(Model.MaScNavigation?.NgayChieu
+                            ?.ToString("dd/MM/yyyy"))
+                    </p>
+
+                    <p>
+                        <b>Giờ chiếu:</b>
+
+                        @(Model.MaScNavigation?.GioChieu
+                            ?.ToString(@"hh\:mm"))
+                    </p>
+
+                    <p>
+                        <b>Ngày đặt:</b>
+
+                        @(Model.NgayDat?.ToString("dd/MM/yyyy"))
+                    </p>
+
+                    <p class="price">
+
+                        💰
+                        @(Model.GiaVe.HasValue
+                            ? Model.GiaVe.Value.ToString("N0")
+                            : "0") đ
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+
+                <div class="text-center">
+
+    <img src="@ViewBag.QRCode"
+         width="180"
+         height="180"
+         style="
+            border-radius:15px;
+            background:white;
+            padding:10px;
+         " />
+                <p class="mt-3">
+                    Mã kiểm vé:
+                   <b style="font-size:20px; letter-spacing:1px;">
+    @Model.MaV
+</b>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+/* CARD */
+
+.ticket-card{
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    color:#111827;
+}
+
+.ticket-card .row{
+    padding:20px 40px 35px 40px;
+}
+/* HEADER */
+
+.ticket-header{
+    background:#dc2626;
+    color:white;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* TITLE */
+
+.movie-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-left:15px;
+    margin-bottom:25px;
+}
+/* INFO */
+
+.ticket-info p{
+    font-size:18px;
+    margin-bottom:15px;
+    color:#111827;
+    padding-left:15px;
+}
+}
+
+/* PRICE */
+
+.price{
+    background:#fef3c7;
+    display:inline-block;
+    padding:10px 20px;
+    border-radius:12px;
+    color:#b45309;
+    font-size:28px !important;
+    font-weight:bold;
+}
+/* QR */
+
+.ticket-card img{
+    image-rendering: crisp-edges;
+}
+.qr-text{
+    font-size:18px;
+    font-weight:700;
+    color:#111827 !important;
+    opacity:1 !important;
+}
+
+</style>

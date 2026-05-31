@@ -1,0 +1,139 @@
+﻿@model Cinema_Booking.Models.Hoadon
+
+<div class="container mt-5 movie-detail-page">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card bg-dark text-light shadow-lg border-0 rounded-4 p-4">
+
+                <!-- TITLE -->
+
+                <div class="text-center mb-4">
+
+                    <h1 class="fw-bold text-danger">
+                        🎟 Thanh toán hóa đơn
+                    </h1>
+
+                    <p class="text-light">
+                        Hoàn tất thanh toán để nhận vé qua email
+                    </p>
+
+                </div>
+
+                <hr class="border-secondary" />
+
+                <!-- THÔNG TIN -->
+
+                <div class="movie-detail-info">
+
+                    <div class="mb-3">
+                        🧾 <b>Mã hóa đơn:</b>
+                        @Model.MaHd
+                    </div>
+
+                    <div class="mb-3">
+                        📅 <b>Ngày lập:</b>
+                        @Model.NgayLap
+                    </div>
+
+                    <div class="mb-3">
+    🎟 <b>Tiền vé:</b>
+
+    <span class="text-info fw-bold">
+        @(((decimal)ViewBag.TienVe).ToString("N0")) đ
+    </span>
+</div>
+
+<div class="mb-3">
+    🍿 <b>Tiền đồ ăn:</b>
+
+    <span class="text-warning fw-bold">
+        @(((decimal)ViewBag.TienDoAn).ToString("N0")) đ
+    </span>
+</div>
+
+<hr class="border-secondary" />
+
+<div class="mb-3">
+    💰 <b>Tổng thanh toán:</b>
+
+    <span class="text-success fw-bold fs-3">
+        @(((decimal)ViewBag.TongThanhToan).ToString("N0")) đ
+    </span>
+</div>
+
+                </div>
+
+                <hr class="border-secondary" />
+
+                <!-- FORM -->
+
+                <form asp-action="XacNhanThanhToan"
+                      method="post">
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.MaHd" />
+
+                    <!-- PHƯƠNG THỨC -->
+
+                    <div class="mt-4">
+
+                        <h4 class="mb-3">
+                            💳 Chọn phương thức thanh toán
+                        </h4>
+
+                        <div class="payment-method">
+    <label>
+        <input type="radio" name="phuongThuc" value="MoMo" checked />
+        🟣 Ví MoMo
+    </label>
+</div>
+
+<div class="payment-method">
+    <label>
+        <input type="radio" name="phuongThuc" value="VNPay" />
+        🔵 VNPay
+    </label>
+</div>
+
+<div class="payment-method">
+    <label>
+        <input type="radio" name="phuongThuc" value="Banking" />
+        🏦 Chuyển khoản ngân hàng
+    </label>
+</div>
+
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <div class="d-flex gap-3 mt-4">
+
+                        <button type="submit"
+                                class="btn btn-danger btn-lg flex-grow-1">
+
+                            💳 Thanh toán ngay
+
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-light btn-lg">
+
+                            ← Quay lại
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

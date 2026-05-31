@@ -1,0 +1,201 @@
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<Cinema_Booking.Models.Suatchieu>
+
+<div class="container mt-4">
+
+    <h1 class="text-center fw-bold text-light mb-5">
+        🎬 Danh sách suất chiếu
+    </h1>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="showtime-card">
+
+                    <!-- TÊN PHIM -->
+
+                    <h3 class="movie-name">
+
+                        @item.MaPNavigation?.TenP
+
+                    </h3>
+
+                    <!-- ĐỊNH DẠNG -->
+
+                    <div class="mb-3">
+
+                        <span class="badge-format">
+
+                            @item.DinhDang
+
+                        </span>
+
+                    </div>
+
+                    <!-- THÔNG TIN -->
+
+                    <div class="show-info">
+
+                        <p>
+                            🏢
+                            <b>Phòng:</b>
+                            @item.MaPhNavigation?.TenPh
+                        </p>
+
+                        <p>
+                            📅
+                            <b>Ngày:</b>
+
+                            @(item.NgayChieu?.ToString("dd/MM/yyyy") ?? "")
+                        </p>
+
+                        <p>
+                            🕒
+                            <b>Giờ:</b>
+
+                            @(item.GioChieu?.ToString(@"hh\:mm") ?? "")
+                        </p>
+
+                        <p>
+                            💰
+                            <b>Giá:</b>
+
+                            @(item.GiaVe.HasValue
+                                ? item.GiaVe.Value.ToString("N0")
+                                : "0") đ
+                        </p>
+
+                    </div>
+
+                    <!-- NÚT -->
+
+                    <div class="d-grid gap-2 mt-4">
+
+    <a asp-controller="Ves"
+       asp-action="DatGhe"
+       asp-route-id="@item.MaSc"
+       class="btn btn-book">
+
+        🎟 Đặt vé
+
+    </a>
+
+    <a asp-action="Details"
+       asp-route-id="@item.MaSc"
+       class="btn btn-outline-light">
+
+        Chi tiết
+
+    </a>
+
+    @if (Context.Session.GetString("Role") == "Admin")
+    {
+        <a asp-action="Edit"
+           asp-route-id="@item.MaSc"
+           class="btn btn-warning">
+
+            ✏️ Sửa
+
+        </a>
+
+        <a asp-action="Delete"
+           asp-route-id="@item.MaSc"
+           class="btn btn-danger">
+
+            🗑 Xóa
+
+        </a>
+    }
+
+</div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    @if (Context.Session.GetString("Role") == "Admin")
+{
+    <div class="text-center mt-4">
+
+        <a asp-action="Create"
+           class="btn btn-warning px-4 py-2 fw-bold">
+
+            ➕ Thêm suất chiếu
+
+        </a>
+
+    </div>
+}
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+/* CARD */
+
+.showtime-card{
+    background:#111827;
+    color:white;
+    padding:25px;
+    border-radius:20px;
+    transition:0.3s;
+    height:100%;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+.showtime-card:hover{
+    transform:translateY(-8px);
+}
+
+/* TÊN PHIM */
+
+.movie-name{
+    font-size:26px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+/* BADGE */
+
+.badge-format{
+    background:#dc2626;
+    color:white;
+    padding:8px 15px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+/* INFO */
+
+.show-info p{
+    margin-bottom:12px;
+    font-size:16px;
+}
+
+/* BUTTON */
+
+.btn-book{
+    background:#f59e0b;
+    color:black;
+    font-weight:bold;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+}
+
+.btn-book:hover{
+    background:#fbbf24;
+    color:black;
+}
+
+</style>

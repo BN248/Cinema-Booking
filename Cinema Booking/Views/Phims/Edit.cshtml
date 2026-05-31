@@ -1,0 +1,119 @@
+﻿@model Cinema_Booking.Models.Phim
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-warning">
+
+            <h3 class="mb-0 fw-bold">
+                ✏️ Sửa phim
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden"
+                       asp-for="MaP" />
+
+                <div class="text-center mb-4">
+
+                    <img src="@Model.HinhAnh"
+                         style="
+                            width:220px;
+                            height:320px;
+                            object-fit:cover;
+                            border-radius:15px;
+                         "
+                         class="shadow" />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Tên phim
+                    </label>
+
+                    <input asp-for="TenP"
+                           class="form-control" />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Hình ảnh (URL)
+                    </label>
+
+                    <input asp-for="HinhAnh"
+                           class="form-control" />
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Thời lượng
+                        </label>
+
+                        <input asp-for="ThoiLuong"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Độ tuổi
+                        </label>
+
+                        <input asp-for="DoTuoi"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Ngày khởi chiếu
+                        </label>
+
+                        <input asp-for="NgayKhoiChieu"
+                               type="date"
+                               class="form-control" />
+
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-4">
+
+                    <button type="submit"
+                            class="btn btn-warning px-4">
+
+                        💾 Lưu thay đổi
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary px-4">
+
+                        Quay lại
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

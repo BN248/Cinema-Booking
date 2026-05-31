@@ -1,0 +1,160 @@
+﻿@model Cinema_Booking.Models.Suatchieu
+
+@{
+    ViewData["Title"] = "Thêm suất chiếu";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0">🎬 Thêm suất chiếu</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                <div class="row">
+
+                    <!-- Mã suất -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">
+                            Mã suất chiếu
+                        </label>
+
+                        <input asp-for="MaSc"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Chọn phim -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Phim
+                        </label>
+
+                        <select asp-for="MaP"
+                                asp-items="ViewBag.MaP"
+                                class="form-select">
+
+                            <option value="">
+                                -- Chọn phim --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Chọn phòng -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Phòng chiếu
+                        </label>
+
+                        <select asp-for="MaPh"
+                                asp-items="ViewBag.MaPh"
+                                class="form-select">
+
+                            <option value="">
+                                -- Chọn phòng --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Ngày chiếu -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Ngày chiếu
+                        </label>
+
+                        <input asp-for="NgayChieu"
+                               type="date"
+                               class="form-control" />
+
+                    </div>
+
+                    <!-- Giờ chiếu -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Giờ chiếu
+                        </label>
+
+                        <input asp-for="GioChieu"
+                               type="time"
+                               class="form-control" />
+
+                    </div>
+
+                    <!-- Giờ kết thúc -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Giờ kết thúc
+                        </label>
+
+                        <input asp-for="GioKetThuc"
+                               type="time"
+                               class="form-control" />
+
+                    </div>
+
+                    <!-- Giá vé -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Giá vé
+                        </label>
+
+                        <input asp-for="GiaVe"
+                               class="form-control"
+                               placeholder="Ví dụ: 90000" />
+
+                    </div>
+
+                    <!-- Định dạng -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Định dạng
+                        </label>
+
+                        <input asp-for="DinhDang"
+                               class="form-control"
+                               placeholder="2D / 3D / IMAX" />
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+
+                    <button type="submit"
+                            class="btn btn-success">
+
+                        ➕ Thêm suất chiếu
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+
+                        Quay lại
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

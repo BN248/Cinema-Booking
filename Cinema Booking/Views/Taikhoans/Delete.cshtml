@@ -1,0 +1,25 @@
+﻿@model Cinema_Booking.Models.Taikhoan
+
+<div class="container mt-4">
+
+    <h2 class="text-danger">🗑 Xóa tài khoản</h2>
+
+    <div class="alert alert-warning">
+        Bạn có chắc muốn xóa tài khoản: <b>@Model.Username</b> ?
+    </div>
+
+    <form asp-action="DeleteConfirmed">
+
+        <input type="hidden" name="id" value="@Model.MaTK" />
+
+        <button class="btn btn-danger">
+            Xóa
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Hủy
+        </a>
+
+    </form>
+
+</div>

@@ -1,0 +1,81 @@
+﻿@model Cinema_Booking.Models.Suatchieu
+
+@{
+    ViewData["Title"] = "Xóa suất chiếu";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-danger text-white">
+
+            <h3 class="mb-0">
+                🗑 Xóa suất chiếu
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+
+                Bạn có chắc muốn xóa suất chiếu này không?
+
+            </div>
+
+            <div class="mb-3">
+
+                <p>
+                    <b>Mã suất:</b>
+                    @Model.MaSc
+                </p>
+
+                <p>
+                    <b>Phim:</b>
+                    @Model.MaPNavigation?.TenP
+                </p>
+
+                <p>
+                    <b>Phòng chiếu:</b>
+                    @Model.MaPhNavigation?.TenPh
+                </p>
+
+                <p>
+                    <b>Ngày chiếu:</b>
+                    @(Model.NgayChieu?.ToString("dd/MM/yyyy"))
+                </p>
+
+                <p>
+                    <b>Giờ chiếu:</b>
+                    @(Model.GioChieu?.ToString("HH:mm"))
+                </p>
+
+            </div>
+
+            <form asp-action="Delete" method="post">
+
+                <input type="hidden"
+                       asp-for="MaSc" />
+
+                <button type="submit"
+                        class="btn btn-danger">
+
+                    🗑 Xóa
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Hủy
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

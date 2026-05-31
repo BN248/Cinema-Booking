@@ -1,0 +1,261 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Sanpham>
+
+@{
+    ViewData["Title"] = "Chọn đồ ăn";
+}
+
+<div class="container py-4">
+
+    <div class="text-center mb-5">
+
+        <h1 class="display-5 fw-bold text-warning">
+    🍿 Chọn đồ ăn và nước uống
+</h1>
+
+<p class="text-light fs-5">
+    Thêm combo yêu thích trước khi thanh toán
+</p>
+
+    </div>
+
+    <form method="post" asp-action="LuuDoAn">
+
+        <input type="hidden"
+               name="maHD"
+               value="@ViewBag.MaHD" />
+
+        <div class="row g-4">
+
+            @foreach (var sp in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="card food-card shadow-lg h-100">
+
+                        <img src="@sp.HinhAnh"
+                             class="card-img-top food-img"
+                             alt="@sp.TenSp">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="fw-bold">
+                                @sp.TenSp
+                            </h5>
+
+                            <div class="food-price">
+                                @String.Format("{0:N0}", sp.DonGia) VNĐ
+                            </div>
+
+                            <div class="input-group mt-3">
+
+                                <button type="button"
+                                        class="btn btn-outline-danger btnMinus">
+                                    -
+                                </button>
+
+                                <input type="number"
+                                       class="form-control text-center foodQty"
+                                       name="soluong_@sp.MaSp"
+                                       data-price="@sp.DonGia"
+                                       value="0"
+                                       min="0">
+
+                                <button type="button"
+                                        class="btn btn-outline-success btnPlus">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <!-- Thanh tổng tiền -->
+
+        <div class="checkout-bar">
+
+            <div>
+
+                <div class="small text-light">
+                    Tổng tiền đồ ăn
+                </div>
+
+                <div class="checkout-price">
+
+                    <span id="tongDoAn">
+                        0
+                    </span>
+
+                    VNĐ
+
+                </div>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-success btn-lg px-4">
+
+                Tiếp tục thanh toán →
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts
+{
+<script>
+
+function tinhTienDoAn()
+{
+    let tong = 0;
+
+    document.querySelectorAll(".foodQty")
+        .forEach(input =>
+        {
+            const gia =
+                parseFloat(input.dataset.price) || 0;
+
+            const sl =
+                parseInt(input.value) || 0;
+
+            tong += gia * sl;
+        });
+
+    document.getElementById("tongDoAn")
+        .innerText =
+        tong.toLocaleString('vi-VN');
+}
+
+document.querySelectorAll(".btnPlus")
+.forEach(btn =>
+{
+    btn.addEventListener("click", function ()
+    {
+        let input =
+            this.parentElement
+                .querySelector(".foodQty");
+
+        input.value =
+            (parseInt(input.value) || 0) + 1;
+
+        tinhTienDoAn();
+    });
+});
+
+document.querySelectorAll(".btnMinus")
+.forEach(btn =>
+{
+    btn.addEventListener("click", function ()
+    {
+        let input =
+            this.parentElement
+                .querySelector(".foodQty");
+
+        let value =
+            parseInt(input.value) || 0;
+
+        if (value > 0)
+        {
+            input.value = value - 1;
+        }
+
+        tinhTienDoAn();
+    });
+});
+
+document.querySelectorAll(".foodQty")
+.forEach(input =>
+{
+    input.addEventListener(
+        "input",
+        tinhTienDoAn
+    );
+});
+
+tinhTienDoAn();
+
+</script>
+}
+
+<style>
+
+body{
+    background:#0d0d0d;
+}
+
+.food-card{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.food-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(255,255,255,.15);
+}
+
+.food-card img{
+    height:220px;
+    object-fit:cover;
+}
+
+.food-price{
+    color:#dc3545;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.foodQty{
+    font-weight:bold;
+}
+
+.btnPlus,
+.btnMinus{
+    width:55px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.checkout-bar{
+    position:sticky;
+    bottom:10px;
+
+    margin-top:30px;
+
+    background:#1f1f1f;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 0 25px rgba(0,0,0,.4);
+}
+
+.checkout-price{
+    color:#ffc107;
+    font-size:28px;
+    font-weight:bold;
+}
+.food-img{
+    height:220px;
+    object-fit:cover;
+    border-radius:15px 15px 0 0;
+}
+</style>

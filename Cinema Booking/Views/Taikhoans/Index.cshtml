@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Taikhoan>
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">
+        👤 Quản lý tài khoản
+    </h2>
+
+    <a asp-action="Create" class="btn btn-success mb-3">
+        ➕ Thêm tài khoản
+    </a>
+
+   <div class="card shadow-lg border-0 rounded-4 p-4 bg-dark text-white">
+
+    <table class="table table-dark table-hover mb-0">
+
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaTK</td>
+                <td>@item.Username</td>
+                <td>@item.Email</td>
+                <td>@item.VaiTro</td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaTK"
+                       class="btn btn-warning btn-sm">
+                        Sửa
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.MaTK"
+                       class="btn btn-danger btn-sm">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+    </div>
+</div>
+<style>
+
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: #111827;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background: #f3f4f6;
+    transition: 0.2s;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+</style>

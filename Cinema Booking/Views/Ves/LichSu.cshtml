@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Ve>
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">
+        📜 Lịch sử đặt vé
+    </h2>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-3">
+
+                <div class="card shadow p-3">
+
+                    <h5 class="text-danger">
+                        @item.MaScNavigation?.MaPNavigation?.TenP
+                    </h5>
+
+                    <p>🎫 Mã vé: @item.MaV</p>
+
+                    <p>🪑 Ghế: @item.MaGNavigation?.HangG @item.MaGNavigation?.SoG</p>
+
+                    <p>💰 Giá: @item.GiaVe</p>
+
+                    <p>📅 Ngày đặt: @item.NgayDat</p>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

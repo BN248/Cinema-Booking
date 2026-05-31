@@ -1,0 +1,194 @@
+﻿@model Cinema_Booking.Models.Suatchieu
+
+<div class="container mt-5">
+
+    <div class="detail-card">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-7">
+
+                <div class="movie-badge">
+                    @Model.DinhDang
+                </div>
+
+                <h1 class="movie-title mt-3">
+                    🎬 @Model.MaPNavigation?.TenP
+                </h1>
+
+                <div class="info-group mt-4">
+
+                    <div class="info-item">
+                        <span class="label">🎟 Mã suất:</span>
+                        <span>@Model.MaSc</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">🏢 Phòng:</span>
+                        <span>@Model.MaPhNavigation?.TenPh</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">📅 Ngày chiếu:</span>
+
+                        <span>
+                            @(Model.NgayChieu.HasValue
+                                ? Model.NgayChieu.Value.ToString("dd/MM/yyyy")
+                                : "")
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">🕒 Giờ chiếu:</span>
+
+                        <span>
+                            @(Model.GioChieu.HasValue
+                                ? Model.GioChieu.Value.ToString(@"hh\:mm")
+                                : "")
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">💰 Giá vé:</span>
+
+                        <span class="price">
+
+                            @(Model.GiaVe.HasValue
+                                ? Model.GiaVe.Value.ToString("N0")
+                                : "0") đ
+
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-5 d-flex align-items-center justify-content-center">
+
+                <div class="action-box">
+
+                    <h4 class="mb-4">
+                        Chọn thao tác
+                    </h4>
+
+                    <div class="d-grid gap-3">
+
+                        <a asp-controller="Ves"
+                           asp-action="DatGhe"
+                           asp-route-id="@Model.MaSc"
+                           class="btn btn-book">
+
+                            🎟 Đặt vé ngay
+
+                        </a>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-light">
+
+                            ← Quay lại
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+/* CARD */
+
+.detail-card{
+    background:#111827;
+    color:white;
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+
+.movie-title{
+    font-size:42px;
+    font-weight:bold;
+}
+
+/* BADGE */
+
+.movie-badge{
+    display:inline-block;
+    background:#dc2626;
+    color:white;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+/* INFO */
+
+.info-group{
+    margin-top:20px;
+}
+
+.info-item{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    font-size:18px;
+}
+
+.label{
+    font-weight:bold;
+    color:#fbbf24;
+}
+
+.price{
+    color:#22c55e;
+    font-weight:bold;
+    font-size:22px;
+}
+
+/* RIGHT BOX */
+
+.action-box{
+    width:100%;
+    background:#1f2937;
+    padding:30px;
+    border-radius:20px;
+}
+
+/* BUTTON */
+
+.btn-book{
+    background:#f59e0b;
+    color:black;
+    font-weight:bold;
+    padding:14px;
+    border-radius:12px;
+    border:none;
+}
+
+.btn-book:hover{
+    background:#fbbf24;
+    color:black;
+}
+
+</style>

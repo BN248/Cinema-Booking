@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Suatchieu>
+
+@{
+    ViewData["Title"] = "Lịch chiếu";
+}
+
+<div class="container mt-4">
+
+    <h2 class="text-center fw-bold mb-4">
+        🎬 Lịch chiếu phim
+    </h2>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow h-100 border-0">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title mb-3">
+
+                            🎞 @item.MaPNavigation?.TenP
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            <b>Mã suất:</b>
+                            @item.MaSc
+
+                        </p>
+
+                        <p class="card-text">
+
+                            <b>Phòng:</b>
+                            @item.MaPhNavigation?.TenPh
+
+                        </p>
+
+                        <p class="card-text">
+
+                            <b>Ngày chiếu:</b>
+                            @(item.NgayChieu?.ToString("dd/MM/yyyy"))
+
+                        </p>
+
+                        <p class="card-text">
+
+                            <b>Giờ chiếu:</b>
+                            @(item.GioChieu?.ToString("HH:mm"))
+
+                        </p>
+
+                        <p class="card-text text-danger fw-bold">
+
+                            💰
+                            @(item.GiaVe.HasValue
+                                ? item.GiaVe.Value.ToString("N0")
+                                : "0")
+                            đ
+
+                        </p>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+
+                        <a asp-controller="Ves"
+                           asp-action="DatGhe"
+                           asp-route-id="@item.MaSc"
+                           class="btn btn-success w-100">
+
+                            🎟 Đặt vé ngay
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

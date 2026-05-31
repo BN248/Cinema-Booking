@@ -1,0 +1,234 @@
+﻿@model Cinema_Booking.Models.Hoadon
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<div class="container mt-5">
+
+    <div class="payment-card">
+
+        <div class="text-center">
+
+            @if(ViewBag.PhuongThuc == "MoMo")
+{
+    <h1 class="payment-title">
+        💜 Thanh toán MoMo
+    </h1>
+}
+else if(ViewBag.PhuongThuc == "VNPay")
+{
+    <h1 class="payment-title">
+        💙 Thanh toán VNPay
+    </h1>
+}
+else
+{
+    <h1 class="payment-title">
+        🏦 Thanh toán chuyển khoản ngân hàng
+    </h1>
+}
+            <p class="text-light">
+                Quét mã QR để hoàn tất thanh toán
+            </p>
+
+        </div>
+
+        <hr />
+
+        <div class="text-center">
+
+            <h4 class="text-warning mb-3">
+                Mã hóa đơn: @Model.MaHd
+            </h4>
+
+            <h2 class="money">
+                @Model.TongTien?.ToString("N0") VNĐ
+            </h2>
+
+            <div class="qr-box">
+
+                <img src="@ViewBag.QRCode"
+                     width="250" />
+
+            </div>
+
+            <div class="alert alert-warning mt-3 text-center">
+
+                @if (ViewBag.PhuongThuc == "MoMo")
+                {
+                    <span>💜 QR MoMo Demo</span>
+                }
+                else if (ViewBag.PhuongThuc == "VNPay")
+                {
+                    <span>💙 QR VNPay Demo</span>
+                }
+                else
+                {
+                    <span>🏦 QR Banking Demo</span>
+                }
+
+            </div>
+
+            <div class="alert alert-info text-center">
+
+                Đây là hệ thống thanh toán mô phỏng.
+                Không phát sinh giao dịch thực tế.
+
+            </div>
+        </div>
+
+        <div class="alert alert-info text-center mt-4">
+
+            📱 Mở ứng dụng
+            <b>@ViewBag.PhuongThuc</b>
+
+            và quét mã QR để thanh toán
+
+        </div>
+
+        <p id="countdown" class="text-warning fw-bold">
+            Vui lòng quét mã QR và chờ xác nhận...
+        </p>
+
+        <form asp-action="ThanhToanThanhCong"
+              method="post">
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.MaHd" />
+
+            <button id="btnThanhToan"
+                    type="submit"
+                    disabled
+                    class="btn btn-success">
+
+                Tôi đã thanh toán
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+.payment-card{
+    max-width:700px;
+    margin:auto;
+    background:#111827;
+    color:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+.payment-title{
+    font-size:42px;
+    font-weight:bold;
+    color:#ef4444;
+}
+
+.money{
+    color:#facc15;
+    font-weight:bold;
+}
+
+.qr-box{
+    text-align:center;
+    margin-top:30px;
+}
+
+.qr-box img{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+}
+
+.btn-confirm{
+    margin-top:30px;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#f59e0b;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-confirm:hover{
+    background:#fbbf24;
+}
+
+.bank-box{
+    background:#1f2937;
+    padding:20px;
+    border-radius:15px;
+    margin:25px 0;
+    text-align:center;
+}
+
+.bank-box h4{
+    color:#facc15;
+    margin-bottom:15px;
+}
+
+.bank-box p{
+    color:white;
+    margin:8px 0;
+    font-size:18px;
+}
+
+.btnThanhToan:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+}
+
+</style>
+<script>
+
+    let seconds = 30;
+
+    let timer = setInterval(function () {
+
+        document.getElementById("countdown").innerHTML =
+            "Vui lòng thanh toán. Có thể xác nhận sau "
+            + seconds + " giây";
+
+        seconds--;
+
+            if (seconds < 0) {
+
+        clearInterval(timer);
+
+        fetch('/Ves/XacNhanGiaLap', {
+            method: 'POST',
+            headers: {
+                'Content-Type':
+                'application/x-www-form-urlencoded'
+            },
+            body: 'id=@Model.MaHd'
+        });
+
+        document
+            .getElementById("btnThanhToan")
+            .disabled = false;
+
+        document
+            .getElementById("countdown")
+            .innerHTML =
+            "✅ Thanh toán mô phỏng thành công";
+
+    }
+
+    }, 1000);
+
+</script>

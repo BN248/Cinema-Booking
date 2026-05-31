@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<Cinema_Booking.Models.Phim>
+
+<form method="get" asp-action="Index" class="mb-4">
+    <div class="input-group">
+
+        <input type="text"
+               name="keyword"
+               class="form-control"
+               placeholder="Tìm phim..." />
+
+        <button class="btn btn-dark">
+            🔍
+        </button>
+
+    </div>
+</form>
+
+<div class="container">
+
+    <h1 class="text-center mb-5 fw-bold">
+        🎬 Danh sách phim
+    </h1>
+
+    @if (Context.Session.GetString("Role") == "Admin")
+{
+    <div class="mb-4 text-end">
+
+        <a asp-action="Create"
+           class="btn btn-success">
+
+            ➕ Thêm phim
+
+        </a>
+
+    </div>
+}
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                <div class="card movie-card h-100">
+
+                    <img src="@item.HinhAnh"
+                         class="movie-img card-img-top" />
+
+                    <div class="card-body">
+
+                        <div class="movie-title">
+                            @item.TenP
+                        </div>
+
+                        <div class="movie-card-info mt-2">
+                            ⏱ @item.ThoiLuong phút
+                        </div>
+
+                        <div class="movie-card-info">
+                            🔞 @item.DoTuoi+
+                        </div>
+                        
+                        <div class="movie-card-info">
+
+    🎭
+    @string.Join(" | ",
+        item.MaTls.Select(x => x.TenTl))
+
+</div>
+
+                        <div class="movie-card-info">
+                            📅
+                            @(item.NgayKhoiChieu.HasValue
+                                ? item.NgayKhoiChieu.Value.ToString("dd/MM/yyyy")
+                                : "")
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+
+                        <div class="d-grid gap-2">
+
+    <a asp-action="Details"
+       asp-route-id="@item.MaP"
+       class="btn btn-dark">
+
+        Chi tiết
+
+    </a>
+
+    @if (Context.Session.GetString("Role") == "Admin")
+    {
+        <a asp-action="Edit"
+           asp-route-id="@item.MaP"
+           class="btn btn-warning">
+
+            ✏️ Sửa
+
+        </a>
+
+        <a asp-action="Delete"
+           asp-route-id="@item.MaP"
+           class="btn btn-danger">
+
+            🗑 Xóa
+
+        </a>
+    }
+
+</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

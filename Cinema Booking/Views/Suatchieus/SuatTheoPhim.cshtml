@@ -1,0 +1,170 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Suatchieu>
+
+<div class="container mt-5">
+
+    <h1 class="text-center fw-bold text-light mb-5">
+        🎬 Suất chiếu theo phim
+    </h1>
+
+    <div class="row">
+
+        @if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">
+
+        Không có suất chiếu cho phim này
+
+    </div>
+}
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="show-card">
+
+                    <!-- TÊN PHIM -->
+
+                    <h3 class="movie-title">
+
+                        @item.MaPNavigation?.TenP
+
+                    </h3>
+
+                    <!-- FORMAT -->
+
+                    <div class="mb-3">
+
+                        <span class="format-badge">
+
+                            @item.DinhDang
+
+                        </span>
+
+                    </div>
+
+                    <!-- THÔNG TIN -->
+
+                    <div class="movie-info">
+
+                        <p>
+                            🏢
+                            <b>Phòng:</b>
+
+                            @item.MaPhNavigation?.TenPh
+                        </p>
+
+                        <p>
+                            📅
+                            <b>Ngày:</b>
+
+                            @(item.NgayChieu?.ToString("dd/MM/yyyy") ?? "")
+                        </p>
+
+                        <p>
+                            🕒
+                            <b>Giờ:</b>
+
+                            @(item.GioChieu?.ToString(@"hh\:mm") ?? "")
+                        </p>
+
+                        <p>
+                            💰
+                            <b>Giá:</b>
+
+                            @(item.GiaVe.HasValue
+                                ? item.GiaVe.Value.ToString("N0")
+                                : "0") đ
+                        </p>
+
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <div class="d-grid mt-4">
+
+                        <a asp-controller="Ves"
+                           asp-action="DatGhe"
+                           asp-route-id="@item.MaSc"
+                           class="btn btn-book">
+
+                            🎟 Đặt vé
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<style>
+
+body{
+    background:#0f172a;
+}
+
+/* CARD */
+
+.show-card{
+    background:#111827;
+    color:white;
+    border-radius:20px;
+    padding:25px;
+    transition:0.3s;
+    height:100%;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+.show-card:hover{
+    transform:translateY(-8px);
+}
+
+/* TITLE */
+
+.movie-title{
+    font-size:32px;
+    font-weight:700;
+    color:white;
+    margin-bottom:15px;
+}
+/* BADGE */
+
+.format-badge{
+    background:#dc2626;
+    color:white;
+    padding:8px 16px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+/* INFO */
+
+.movie-info p{
+    margin-bottom:12px;
+    font-size:18px;
+    color:#f8fafc;
+    font-weight:500;
+}
+/* BUTTON */
+
+.btn-book{
+    background:#f59e0b;
+    border:none;
+    color:black;
+    font-weight:bold;
+    padding:12px;
+    border-radius:12px;
+}
+
+.btn-book:hover{
+    background:#fbbf24;
+    color:black;
+}
+
+</style>

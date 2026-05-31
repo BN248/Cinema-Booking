@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Cinema_Booking.Models.Phim>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <div class="hero-content">
+
+            <h1>
+                🎬 CINEMA BOOKING
+            </h1>
+
+            <p>
+                Đặt vé phim nhanh chóng - tiện lợi - hiện đại
+            </p>
+
+            <a asp-controller="Phims"
+               asp-action="Index"
+               class="btn btn-danger btn-lg">
+
+                Đặt vé ngay
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PHIM HOT -->
+<div class="container mt-5">
+
+    <h2 class="section-title">
+        🔥 Phim nổi bật
+    </h2>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                <div class="card movie-card h-100">
+
+                    <img src="@item.HinhAnh"
+                         class="movie-img card-img-top" />
+
+                    <div class="card-body">
+
+                        <div class="movie-title">
+                            @item.TenP
+                        </div>
+
+                        <div class="movie-info">
+                            ⏱ @item.ThoiLuong phút
+                        </div>
+
+                        <div class="movie-info">
+                            🔞 @item.DoTuoi+
+                        </div>
+
+                        <div class="movie-info">
+                            🎭
+                            @string.Join(", ",
+                                     item.MaTls.Select(x => x.TenTl))
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0">
+
+                        <div class="d-grid gap-2">
+
+                            <a asp-controller="Phims"
+                               asp-action="Details"
+                               asp-route-id="@item.MaP"
+                               class="btn btn-outline-light">
+
+                                Chi tiết
+
+                            </a>
+
+                            <a asp-controller="Suatchieus"
+                               asp-action="SuatTheoPhim"
+                               asp-route-maP="@item.MaP"
+                               class="btn btn-danger">
+
+                                🎟 Đặt vé
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
